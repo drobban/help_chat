@@ -35,6 +35,11 @@ defmodule HelpChatWeb.RoomChannel do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_in("present", payload, socket) do
+    {:noreply, socket}
+  end
+
   # Add authorization logic here as required.
   defp authorized?(_payload) do
     true

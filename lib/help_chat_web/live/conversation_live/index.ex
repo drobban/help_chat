@@ -42,8 +42,19 @@ defmodule HelpChatWeb.ConversationLive.Index do
 
 
   @impl true
-  def handle_info(%Phoenix.Socket.Broadcast{topic: topic, event: "ident", payload: payload}, socket) do
+  def handle_info(%Phoenix.Socket.Broadcast{topic: _topic, event: "ident", payload: payload}, socket) do
     IO.inspect("Got ident event: #{inspect payload}")
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info(%Phoenix.Socket.Broadcast{topic: _topic, event: "present", payload: %{"user" => user}}, socket) do
+    socket =
+      socket
+      |> assign(:users, [user])
+
+    IO.inspect("Users: #{inspect socket[:users]}")
 
     {:noreply, socket}
   end

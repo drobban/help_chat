@@ -12,7 +12,7 @@ defmodule HelpChatWeb.RoomChannelTest do
 
   test "ping replies with status ok", %{socket: socket} do
     ref = push(socket, "ping", %{"hello" => "there"})
-    assert_reply ref, :ok, %{"hello" => "there"}
+    assert_reply ref, :ok, %{"message" => "Got ping!"}
   end
 
   test "shout broadcasts to room:lobby", %{socket: socket} do

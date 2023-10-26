@@ -19,7 +19,7 @@ defmodule HelpChatWeb.RoomChannel do
   end
 
   @impl true
-  def handle_in("message", %{"message" => msg} = payload, socket) do
+  def handle_in("message", %{"message" => msg} = _payload, socket) do
     IO.inspect("#{inspect socket}")
     response_data = %{"message" => "#{socket.join_ref}: #{msg}\n"}
 

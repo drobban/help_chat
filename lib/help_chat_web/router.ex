@@ -18,6 +18,9 @@ defmodule HelpChatWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/conversations", ConversationLive.Index, :index
+
   end
 
   # Other scopes may use custom stacks.

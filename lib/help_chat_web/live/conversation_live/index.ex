@@ -5,7 +5,7 @@ defmodule HelpChatWeb.ConversationLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     HelpChatWeb.Endpoint.subscribe("room:lobby")
-    HelpChatWeb.Endpoint.broadcast("room:lobby", "ident", %{data: "test"})
+    HelpChatWeb.Endpoint.broadcast("room:lobby", "ident", %{})
     socket =
       socket
       |> assign(:conversations, [])
@@ -57,6 +57,14 @@ defmodule HelpChatWeb.ConversationLive.Index do
       |> assign(:users, socket.assigns.users ++ [user])
 
     IO.inspect("Users: #{inspect socket.assigns.users}")
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info(%Phoenix.Socket.Broadcast{topic: _topic, event: "shout", payload: payload} = data, socket) do
+
+    IO.inspect("#{inspect data}")
 
     {:noreply, socket}
   end

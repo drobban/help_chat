@@ -4,17 +4,23 @@ defmodule HelpChatWeb.RoomChannel do
   @impl true
   def join("room:lobby", payload, socket) do
     if authorized?(payload) do
+      send(self(), {:after_join, payload})
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
+  def handle_info({:after_join, payload}, socket) do
+    broadcast(socket, "present", payload)
+    {:noreply, socket}
+  end
+
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
   def handle_in("ping", _payload, socket) do
-    response_data = %{"message" => "Got ping!"}
+    response_data = %{"message" => "pong!"}
     {:reply, {:ok, response_data}, socket}
   end
 

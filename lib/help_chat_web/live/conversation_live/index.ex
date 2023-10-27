@@ -9,6 +9,7 @@ defmodule HelpChatWeb.ConversationLive.Index do
     socket =
       socket
       |> assign(:conversations, [])
+      |> assign(:users, [])
 
     {:ok, socket}
   end
@@ -50,11 +51,12 @@ defmodule HelpChatWeb.ConversationLive.Index do
 
   @impl true
   def handle_info(%Phoenix.Socket.Broadcast{topic: _topic, event: "present", payload: %{"user" => user}}, socket) do
+
     socket =
       socket
-      |> assign(:users, [user])
+      |> assign(:users, socket.assigns.users ++ [user])
 
-    IO.inspect("Users: #{inspect socket[:users]}")
+    IO.inspect("Users: #{inspect socket.assigns.users}")
 
     {:noreply, socket}
   end

@@ -37,6 +37,7 @@ defmodule HelpChatWeb.RoomChannel do
 
   @impl true
   def handle_in("present", payload, socket) do
+    broadcast(socket, "present", payload)
     {:noreply, socket}
   end
 

@@ -6,22 +6,9 @@
 </.header>
 
 <.table
-  id="conversations"
-  rows={@conversations}
+  id="Users"
+  rows={@users}
 >
-  <:col :let={conversation} label="id"><%= conversation.id %> 
+  <:col :let={user} label="Users"><%= user %>
   </:col>
-  <:action >
-    <div class="sr-only">
-      <.link navigate={~p"/conversations/"}>Index</.link>
-    </div>
-  </:action>
-  <:action :let={{id, conversation}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: conversation.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
 </.table>
